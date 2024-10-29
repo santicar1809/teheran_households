@@ -12,7 +12,7 @@ def feature_engineer_2(data):
 
     df_test['address'] = df_test['address'].apply(lambda x: encoder.transform([x])[0] 
                                                           if x in encoder.classes_ else -1)
-    output_path = './files/datasets/output/'
-    df_test.to_csv(output_path+'df_test.csv')
+    output_path = './test/files/'
+    df_test.to_csv(output_path+'df_test.csv',index=False)
 
     return df_train
