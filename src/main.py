@@ -17,10 +17,10 @@ def main():
     preprocessed_data = preprocess_data(data) #Preprocessing stage
     eda_report(preprocessed_data) # Analysis stage
     processed_data = feature_engineer(preprocessed_data) # Feature engineering stage
-    clustering_data(processed_data[0])
+    clustering_data(processed_data)
     #results = iterative_modeling(processed_data) # Modeling stage
-    return processed_data
+    return preprocessed_data
 
 results = main()
-results
+rresults
 #print(results)
