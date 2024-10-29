@@ -1,0 +1,30 @@
+model,best_estimator,rmse_score,r2_score
+dummy,"Pipeline(steps=[('scaler', StandardScaler()), ('dummy', DummyRegressor())])",0.09347145163825248,-0.002868408462803007
+Linreg,"Pipeline(steps=[('scaler', StandardScaler()), ('Linreg', LinearRegression())])",0.06238618998651363,0.5532517060016664
+XGboost,"Pipeline(steps=[('scaler', StandardScaler()),
+                ('xgboost',
+                 XGBRegressor(base_score=None, booster=None, callbacks=None,
+                              colsample_bylevel=None, colsample_bynode=None,
+                              colsample_bytree=None, device=None,
+                              early_stopping_rounds=None,
+                              enable_categorical=False, eval_metric=None,
+                              feature_types=None, gamma=None, grow_policy=None,
+                              importance_type=None,
+                              interaction_constraints=None, learning_rate=0.01,
+                              max_bin=None, max_cat_threshold=None,
+                              max_cat_to_onehot=None, max_delta_step=None,
+                              max_depth=3, max_leaves=None,
+                              min_child_weight=None, missing=nan,
+                              monotone_constraints=None, multi_strategy=None,
+                              n_estimators=200, n_jobs=None,
+                              num_parallel_tree=None, random_state=1234, ...))])",0.05900437553322,0.6003733773978741
+Random_Forest,"Pipeline(steps=[('scaler', StandardScaler()),
+                ('random_forest',
+                 RandomForestRegressor(max_depth=30, min_samples_split=5,
+                                       n_estimators=10, random_state=1234))])",0.058277329749232075,0.6101610178726262
+dt,"Pipeline(steps=[('scaler', StandardScaler()),
+                ('dt', DecisionTreeRegressor(max_depth=4, max_features=2))])",0.06461199652015336,0.5208049780003272
+lightgbm,"Pipeline(steps=[('lightgbm', LGBMRegressor(max_depth=3))])",0.05119742550513437,0.6991276893695864
+cat,"Pipeline(steps=[('cat',
+                 <catboost.core.CatBoostRegressor object at 0x0000017356D4ADE0>)])",0.05362579911589207,0.6699091167465283
+Keras,,0.02590379496866547,-1.794097044626203

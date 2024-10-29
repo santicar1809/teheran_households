@@ -1,30 +1,18 @@
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
-import pandas as pd
-from src.preprocessing.load_data import load_datasets
-from src.preprocessing.preprocess import preprocess_data
-data = load_datasets() #Loading stage
-data = preprocess_data(data)
-data=data
-def binary_transform(column):
-    if column==True:
-        return 1
-    elif column==False:
-        return 0
 
-#def feature_engineer(data):
-seed=12345
-data[['elevator','warehouse','parking']]=data[['elevator','warehouse','parking']].astype('int')
-df_train,df_test=train_test_split(data,test_size=0.8,random_state=seed)
+def feature_engineer_2(data):
+    seed=12345
+    data[['elevator','warehouse','parking']]=data[['elevator','warehouse','parking']].astype('int')
+    data=data.drop(['cluster'],axis=1)
+    df_train,df_test=train_test_split(data,test_size=0.3,random_state=seed)
+    encoder=LabelEncoder()
+    df_train['address'] = encoder.fit_transform(df_train['address'])
+     # Las etiquetas no vistas se convierten en -1 (o puedes manejarlo como prefieras)
 
-unseen_labels = set(df_test['address']) - set(df_train['address'])
-if unseen_labels:
-    print(f"Unseen labels in test set: {unseen_labels}")
-address_count=data['address'].value_counts()
-address_count
+    df_test['address'] = df_test['address'].apply(lambda x: encoder.transform([x])[0] 
+                                                          if x in encoder.classes_ else -1)
+    output_path = './files/datasets/output/'
+    df_test.to_csv(output_path+'df_test.csv')
 
-encoder=LabelEncoder()
-df_train['address'] = encoder.fit_transform(df_train['address'])
-df_test['address'] = encoder.transform(df_test['address'])
-
-#return data
+    return df_train

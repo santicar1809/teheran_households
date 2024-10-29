@@ -6,6 +6,7 @@ from sklearn.linear_model import LinearRegression
 from lightgbm import LGBMRegressor
 from xgboost import XGBRegressor
 from catboost import Pool, CatBoostRegressor
+from sklearn.dummy import DummyRegressor
 from statsmodels.tsa.seasonal import seasonal_decompose
 import numpy as np
 
@@ -14,10 +15,20 @@ def all_models():
     '''This function will host all the model parameters, can be used to iterate the
     grid search '''
 
+
+    dummy_pipeline=Pipeline([
+        ('scaler',StandardScaler()),
+        ('dummy', DummyRegressor())
+    ])
+    
+    dummy_param_grid = {}
+    
     lr_pipeline = Pipeline([
         ('scaler',StandardScaler()),
         ('Linreg', LinearRegression())
     ])
+    
+    dummy=['dummy',dummy_pipeline,dummy_param_grid]
 
     lr_param_grid = {
         }
@@ -65,10 +76,6 @@ def all_models():
     
     dt=['dt',dt_pipeline,dt_params]
     
-    models = [lr,xg,rf,dt] #Activate to run all the models
-    return models
-
-def category_models(cat_features):
     lgbm_pipeline = Pipeline([
         ('lightgbm', LGBMRegressor())
     ])
@@ -88,9 +95,9 @@ def category_models(cat_features):
     }
     
     cat_pipeline = Pipeline([
-        ('cat',CatBoostRegressor(random_state=1234,cat_features=cat_features))])
+        ('cat',CatBoostRegressor(random_state=1234))])
     
     cat = ['cat',cat_pipeline,cat_param_grid]
     
-    models = [cat,lgbm]
+    models = [dummy,lr,xg,rf,dt,lgbm,cat] #Activate to run all the models
     return models
